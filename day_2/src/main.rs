@@ -4,7 +4,7 @@ fn main() {
     let contents =
         fs::read_to_string("src/input.txt").expect("Should have been able to read the file");
 
-    let list = contents.split("\n");
+    let list: std::str::Split<'_, &str> = contents.split("\n");
     let mut count = 0;
     for line in list {
         println!("{}", line);
@@ -59,8 +59,7 @@ fn is_safe_report(splitLine: &Vec<&str>, mut last_direction: Option<i32>) -> boo
         .parse::<i32>()
         .expect("Invalid number in input");
 
-    let result = num1 - num2;
-    let result = num1 - num2;
+    let result: i32 = num1 - num2;
     if result <= 3 && result >= 1 {
         // checks directionbs
         last_direction = Some(1);
