@@ -1,21 +1,25 @@
+use rayon::prelude::*;
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::fs;
+use std::sync::atomic::{AtomicUsize, Ordering};
 
 fn main() {
+    //part1();
     part2();
 }
 
 fn part2() {
     let mut char_2d_array = parse_input("src/input.txt");
-    let mut x = 0;
-    let mut y = 0;
+
     let mut initial_x = 0;
     let mut initial_y = 0;
+    let count = AtomicUsize::new(0); // Atomic counter for parallel safety
 
     let dirs: HashMap<char, (i32, i32)> =
         HashMap::from([('^', (0, -1)), ('>', (1, 0)), ('v', (0, 1)), ('<', (-1, 0))]);
-
+    let direction_changes: HashMap<char, char> =
+        HashMap::from([('^', '>'), ('>', 'v'), ('v', '<'), ('<', '^')]);
     // Find the initial position of the guard ('^')
     for (row_index, row) in char_2d_array.iter().enumerate() {
         if let Some(col_index) = row.iter().position(|&c| c == '^') {
@@ -25,16 +29,15 @@ fn part2() {
     }
     // Find the initial position of the guard
 
-    let mut count = 0;
-    for i in 0..char_2d_array.len() {
+    (0..char_2d_array.len()).into_par_iter().for_each(|i| {
         for mut j in 0..char_2d_array.len() {
             let mut visited: HashSet<(usize, usize, char)> = HashSet::new();
             // Reparse input every loop iteration
-            char_2d_array = parse_input("src/input.txt");
+            let mut char_2d_array = parse_input("src/input.txt");
             //println!("i:{}, j:{}", i, j);
 
-            x = initial_x;
-            y = initial_y;
+            let mut x = initial_x;
+            let mut y = initial_y;
 
             // Change '.' to 'O'
             if char_2d_array[i][j] == '.' {
@@ -44,8 +47,6 @@ fn part2() {
                     j += 2;
                 }
             }
-            let direction_changes: HashMap<char, char> =
-                HashMap::from([('^', '>'), ('>', 'v'), ('v', '<'), ('<', '^')]);
 
             // print_grid(&char_2d_array);
             // println!();
@@ -62,7 +63,7 @@ fn part2() {
                         "Guard is stuck in a loop at ({}, {}) with direction {}",
                         x, y, direction
                     );
-                    count += 1;
+                    count.fetch_add(1, Ordering::Relaxed); // Use atomic counter
                     break; // Loop detected
                 } else {
                     visited.insert((x, y, direction));
@@ -170,17 +171,14 @@ fn part2() {
             // Reset the grid position after finishing the loop
             char_2d_array[i][j] = '.';
         }
-    }
+    });
 
     // Print the number of times the guard got stuck in a loop
-    println!("{}", count);
+    println!("{:?}", count);
 }
 
 fn part1() {
     let mut char_2d_array = parse_input("src/input.txt");
-
-    let mut x = 0;
-    let mut y = 0;
 
     let dirs: HashMap<char, (i32, i32)> =
         HashMap::from([('^', (0, -1)), ('>', (1, 0)), ('v', (0, 1)), ('<', (-1, 0))]);
@@ -260,6 +258,7 @@ fn parse_input(file_path: &str) -> Vec<Vec<char>> {
 }
 
 fn print_grid(char_2d_array: &Vec<Vec<char>>) {
+    // debugging
     for line in char_2d_array {
         for character in line {
             print!("{} ", character);
