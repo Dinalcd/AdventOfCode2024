@@ -1,0 +1,11 @@
+G:\Dinal\AdventOfCode2024\day_7\target\release\deps\libwinapi_util-d47eb9aafbed62c8.rmeta: C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src/lib.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\console.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\file.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\sysinfo.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\win.rs
+
+G:\Dinal\AdventOfCode2024\day_7\target\release\deps\libwinapi_util-d47eb9aafbed62c8.rlib: C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src/lib.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\console.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\file.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\sysinfo.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\win.rs
+
+G:\Dinal\AdventOfCode2024\day_7\target\release\deps\winapi_util-d47eb9aafbed62c8.d: C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src/lib.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\console.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\file.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\sysinfo.rs C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\win.rs
+
+C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src/lib.rs:
+C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\console.rs:
+C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\file.rs:
+C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\sysinfo.rs:
+C:\Users\Dinal\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\win.rs:

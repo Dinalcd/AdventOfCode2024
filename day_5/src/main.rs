@@ -92,7 +92,7 @@ fn part2() {
     for number in list {
         let num: Vec<String> = number.split(",").map(|s| s.to_string()).collect();
         let mut valid = true;
-        for mut i in 0..num.len() {
+        for i in 0..num.len() {
             let val: Vec<String> = rules.get(&num[i]).cloned().unwrap_or_else(Vec::new);
             for j in i + 1..num.len() {
                 if !val.contains(&num[j]) {

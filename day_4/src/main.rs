@@ -3,8 +3,8 @@ use std::fs;
 fn main() {
     part1();
     part2();
-    longpart1();
-    longpart2();
+    // longpart1();
+    // longpart2();
 }
 fn part1() {
     let contents =
