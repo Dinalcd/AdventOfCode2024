@@ -1,0 +1,181 @@
+use std::collections::HashMap;
+use std::fs;
+
+fn main() {
+    part1();
+}
+
+fn part2() {
+    let mut char_2d_array = parse_input("src/input.txt");
+
+    let mut x = 0;
+    let mut y = 0;
+
+    let dirs: HashMap<char, (i32, i32)> =
+        HashMap::from([('^', (0, -1)), ('>', (1, 0)), ('v', (0, 1)), ('<', (-1, 0))]);
+
+    let mut x = 0;
+    let mut y = 0;
+    for (row_index, row) in char_2d_array.iter().enumerate() {
+        if let Some(col_index) = row.iter().position(|&c| c == '^') {
+            x = row_index;
+            y = col_index;
+        }
+    }
+    // println!("{:?}", dirs);
+
+    // println!("{:?}", x);
+    // println!("{:?}", y);
+    let mut count = 0;
+    for i in 0..char_2d_array.len() {
+        for j in 0..char_2d_array.len() {
+            if (char_2d_array[i][j] == '.') {
+                char_2d_array[i][j] = 'O';
+            } else {
+                break;
+            }
+
+            print_grid(&char_2d_array);
+
+            while x >= 0 && y >= 0 && x < char_2d_array.len() && y < char_2d_array[0].len() {
+                let direction = char_2d_array[x][y];
+
+                if let Some((movex, movey)) = dirs.get(&direction) {
+                    // Now `x` is the first value and `y` is the second
+                    //println!("The first number is {}", movex); // Access the first number
+                    //println!("The second number is {}", movey); // Access the first number
+                    let new_x = x as i32 + movey;
+                    let new_y = y as i32 + movex;
+                    // println!("{}", new_x);
+                    // println!("{}", new_y);
+                    if new_x < 0
+                        || new_y < 0
+                        || new_x >= char_2d_array.len() as i32
+                        || new_y >= char_2d_array[0].len() as i32
+                    {
+                        count += 1;
+                        break;
+                    }
+
+                    if char_2d_array[new_x as usize][new_y as usize] == '.' {
+                        char_2d_array[new_x as usize][new_y as usize] = direction;
+                        char_2d_array[x][y] = 'X';
+                        x = new_x as usize;
+                        y = new_y as usize;
+                        count += 1;
+                    } else if char_2d_array[new_x as usize][new_y as usize] == 'X' {
+                        char_2d_array[new_x as usize][new_y as usize] = direction;
+                        char_2d_array[x][y] = 'X';
+                        x = new_x as usize;
+                        y = new_y as usize;
+                    }
+                    if char_2d_array[new_x as usize][new_y as usize] == '#'
+                        || char_2d_array[new_x as usize][new_y as usize] == 'O'
+                    {
+                        if char_2d_array[x][y] == '^' {
+                            char_2d_array[x][y] = '>';
+                        } else if char_2d_array[x][y] == '>' {
+                            char_2d_array[x][y] = 'v';
+                        } else if char_2d_array[x][y] == 'v' {
+                            char_2d_array[x][y] = '<';
+                        } else if char_2d_array[x][y] == '<' {
+                            char_2d_array[x][y] = '^';
+                        }
+                    }
+                } else {
+                    println!("Direction not found");
+                }
+            }
+            char_2d_array[i][j] = '.';
+        }
+    }
+
+    println!("{}", count);
+    // print grid
+    //print_grid(&char_2d_array);
+}
+
+fn part1() {
+    let contents =
+        fs::read_to_string("src/input.txt").expect("Should have been able to read the file");
+
+    let mut char_2d_array: Vec<Vec<char>> = contents
+        .lines() // Split the string into lines
+        .map(|line| line.chars().collect()) // Convert each line into a Vec<char>
+        .collect();
+    let mut x = 0;
+    let mut y = 0;
+
+    let dirs: HashMap<char, (i32, i32)> =
+        HashMap::from([('^', (0, -1)), ('>', (1, 0)), ('v', (0, 1)), ('<', (-1, 0))]);
+
+    let mut x = 0;
+    let mut y = 0;
+    for (row_index, row) in char_2d_array.iter().enumerate() {
+        if let Some(col_index) = row.iter().position(|&c| c == '^') {
+            x = row_index;
+            y = col_index;
+        }
+    }
+    // println!("{:?}", dirs);
+
+    // println!("{:?}", x);
+    // println!("{:?}", y);
+    let mut count = 0;
+    while x >= 0 && y >= 0 && x < char_2d_array.len() && y < char_2d_array[0].len() {
+        let direction = char_2d_array[x][y];
+
+        if let Some((movex, movey)) = dirs.get(&direction) {
+            // Now x is the first value and y is the second
+            //println!("The first number is {}", movex); // Access the first number
+            //println!("The second number is {}", movey); // Access the first number
+            let new_x = x as i32 + movey;
+            let new_y = y as i32 + movex;
+            // println!("{}", new_x);
+            // println!("{}", new_y);
+            if new_x < 0
+                || new_y < 0
+                || new_x >= char_2d_array.len() as i32
+                || new_y >= char_2d_array[0].len() as i32
+            {
+                count += 1;
+                break;
+            }
+
+            if char_2d_array[new_x as usize][new_y as usize] == '.' {
+                char_2d_array[new_x as usize][new_y as usize] = direction;
+                char_2d_array[x][y] = 'X';
+                x = new_x as usize;
+                y = new_y as usize;
+                count += 1;
+            } else if char_2d_array[new_x as usize][new_y as usize] == 'X' {
+                char_2d_array[new_x as usize][new_y as usize] = direction;
+                char_2d_array[x][y] = 'X';
+                x = new_x as usize;
+                y = new_y as usize;
+            }
+            if char_2d_array[new_x as usize][new_y as usize] == '#' {
+                if char_2d_array[x][y] == '^' {
+                    char_2d_array[x][y] = '>';
+                } else if char_2d_array[x][y] == '>' {
+                    char_2d_array[x][y] = 'v';
+                } else if char_2d_array[x][y] == 'v' {
+                    char_2d_array[x][y] = '<';
+                } else if char_2d_array[x][y] == '<' {
+                    char_2d_array[x][y] = '^';
+                }
+            }
+        } else {
+            println!("Direction not found");
+        }
+    }
+
+    println!("{}", count);
+    // print grid
+    for line in char_2d_array {
+        for character in line {
+            print!("{} ", character)
+        }
+        println!();
+    }
+}
