@@ -35,8 +35,6 @@ fn part2() {
 fn score2(array: Vec<Vec<usize>>, i: usize, j: usize) -> usize {
     let mut q: VecDeque<(usize, usize)> = VecDeque::new();
     q.push_back((i, j)); // initiallise q with the trailhead
-    let mut seen: HashMap<(usize, usize), usize> = HashMap::new(); // hashmap which stores locations and how many times we can reach the cell
-    seen.insert((i, j), 1);
     let mut trails: usize = 0; // count how many 9s we have reached
     while !q.is_empty() {
         // while the queue is not empty
